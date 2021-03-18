@@ -1,0 +1,144 @@
+import requests
+import re
+from bs4 import BeautifulSoup
+
+ 
+
+#input
+query = "Brexit"
+dateFilter = "30+day" #all/1+year/30+day/7+day/1+day
+
+ 
+
+# find page number of last page
+
+ 
+
+if len(query) == 0:
+    URL = 'https://www.risk.net/search/articles?' + '&sort_by=relevance&date-filter=' + dateFilter
+else:
+    URL = 'https://www.risk.net/search/articles?&query=' + query + '&sort_by=relevance&date-filter=' + dateFilter
+
+ 
+
+page = requests.get(URL)
+soup = BeautifulSoup(page.content, 'html.parser')
+results = soup.find(id='')
+risk_elems = results.find_all('span', class_='last')
+span_class_last = str(risk_elems)
+
+ 
+
+m = re.search('page=(.+?)&amp', span_class_last)
+if m:
+    noOfPage = m.group(1)
+else:
+    noOfPage = 1
+
+ 
+
+ErrorList = []
+
+URLList = []
+TitleList = []
+DateList = []
+
+Source = []
+Tag = []
+
+#loop through each page
+for pageNo in range (0, int(noOfPage)):
+    if len(query) == 0:
+        URL = 'https://www.risk.net/search/articles?page='+ str(pageNo) + '&sort_by=relevance&date-filter=' + dateFilter
+    else:
+        URL = 'https://www.risk.net/search/articles?page='+ str(pageNo) + '&query=' + query + '&sort_by=relevance&date-filter=' + dateFilter
+    page = requests.get(URL)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    results = soup.find(id='listings')
+    risk_elems = results.find_all('h5', class_='article-title')
+
+ 
+
+    #results of each page:
+    for order in range (0, len(risk_elems)):
+        risk_elems_string = str(risk_elems[order])
+
+        m = re.search('href=\"(.+?)\"', risk_elems_string)
+        if m:
+            found = m.group(1)
+            if (int(pageNo) == 0 and int(order) == 0 and len(query) > 0): #1st result (absolute path)
+                URL = found
+            else: #2nd to nth result (relative path)
+                URL = "https://www.risk.net" + found
+                
+                page = requests.get(URL)
+                soup = BeautifulSoup(page.content, 'html.parser')
+                results = soup.find(id='')
+               
+                risk_title = results.find_all('h1', class_='article-title')[0].get_text()
+                
+                try:               
+                    risk_date = results.find_all('li', class_='author-dateline-time')[0].get_text()
+                    DateList.append(risk_date)
+                    print(risk_date)
+                    print("normal")
+                    URLList.append(URL)
+                    TitleList.append(risk_title.strip())
+                    
+                except:
+                   print('Exception occured')
+                   
+                
+                
+                
+                #risk_date = results.find_all('time')[0].get_text()
+                #print(risk_date)
+                #DateList.append(risk_date)
+                #print (risk_date.get('datetime'))
+                
+              
+ 
+#print (URLList)
+
+for URL in URLList:
+    print(URL)
+    
+
+#print (TitleList)
+
+for Title in TitleList:
+    print(Title)
+          
+for Date in DateList:
+    print(Date)          
+
+
+ #Export to excel
+
+print(len(URLList))
+
+print(len(TitleList))
+
+print(len(DateList))
+
+
+
+
+
+import pandas as pd
+
+
+
+risk = {'Source': "Risk.net",
+        'Tag': query,
+        'Title': TitleList,
+        'Date': DateList,
+        'URL': URLList
+        }
+
+df = pd.DataFrame(risk, columns = ['Source', 'Tag', 'Title', 'Date', 'URL'])
+
+df.to_excel (r'C:/Users/enoch/iCloudDrive/Desktop/export_risk.net_' + query +'.xlsx', index = False, header=True)
+
+
+
