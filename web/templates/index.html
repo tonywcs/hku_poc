@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <header style="background-color: #2f0f1a;">
+        <div class="container" >
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="https://www.societegenerale.com/en"><img src="https://www.societegenerale.com/sites/default/files/2018/soc102c.png" alt="SG LOGO" style="width: 20%;"></a> 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://hkusg.herokuapp.com/" style="color:white;white-space: nowrap;">Introducing Clustering to Societe Generale's News Digest System</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#" style="color:white;">&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="color:white;">About</a>
+                        </li> -->
+                
+                    </div>
+                </ul>
+                </div>
+                
+            </nav>
+        </div>
+    </header>
+    <!--error message-->
+    {% if no_error == false %} 
+    <div class="alert alert-primary" role="alert">
+        Input Error. Please Search Again. 
+    </div>
+    {% endif %}
+    <div class="jumbotron" style="margin:0rem; padding:1rem">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    {% if nc.cluster_type == 'day' %}
+                        {% if nc.date == today %}
+                        <h3 style="font-family: 'Helvetica';display: inline-block;">Cluster of This Week: {{nc.date}}</h3>
+                        {% else %}
+                        <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.date}}'s Cluster</h3>
+                        {% endif %}
+                    {% elif nc.cluster_type == 'week' %}
+                    <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.week}}'s Cluster</h3>
+                    {% elif nc.cluster_type == 'month' %}
+                    <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.month}}'s Cluster</h3>
+                    {% elif nc.cluster_type == 'all' %}
+                    <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying All Data's Cluster</h3>
+                    {% endif %}
+                    <div style=" display: inline-block;"><p style="font-size: large;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster Type: {{nc.cluster_type}}</p></div>
+                    <div><p style="font-size: large;">Total Number of Clusters: {{nc.total_number_of_clusters}}</p></div>
+                </div>      
+                <div class="col-4">
+                    <form action="/" method="POST">
+                        <div class="row" id="radioctype">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ctype" value="all" checked>
+                                <label class="form-check-label" for="all">All</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ctype" value="month">
+                                <label class="form-check-label" for="month">Monthly</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ctype" value="week">
+                                <label class="form-check-label" for="week">Weekly</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="ctype" value="day">
+                                <label class="form-check-label" for="day">Daily</label>
+                            </div>
+                        
+                            
+                        </div>
+                        <div class="row" id="datein">
+                            <div class="col">
+                                <label for="start">Start with:&nbsp;&nbsp;&nbsp;</label>
+                                <input type="date" id="start" name="inputdate" min="2021-01-01" max = "2021-03-17" style="display: inline-block; height:25px">
+                                <p style="display: inline-block;">&nbsp;&nbsp;</p>
+                                <button class="btn btn-primary" type="submit" style="display: inline-block; height:25px; font-size: small;background-color: white; border: 1px solid black;">🔍</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    
+    {% for ncer in nc.clusters %}
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3 style="font-family: 'Helvetica';font-weight: normal;display: inline-block;">Cluster {{ncer.cluster}}</h3>
+                        <div style="display: inline-block;"><p style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Size of Cluster: {{ncer.total_number_of_articles}})</p></div>
+                    </div>       
+                </div>
+            </div>
+
+        <section id="top" >
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="taglist">
+                            <h3 style="font-family: 'Helvetica';font-weight: normal;">Top Keywords</h3>
+                            <div id="badge">
+                                <div class="row"> 
+                                    {% for keyword in ncer.nounKeywords %}
+                               
+                                    <button style="margin-left: 10px; margin-bottom: 10px;background-color: #e9041e; border: #e9041e;" type="button" class="btn btn-primary">
+                                        {{keyword[0]}} <span class="badge badge-light" style="color: black;">{{keyword[1]}}</span>
+                                    </button>
+                                    
+                                    {% endfor %}
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="taglist">
+                            <h3 style="font-family: 'Helvetica';font-weight: normal;">Top Appeared Entity</h3>
+                            <div id="badge">
+                                <div class="row"> 
+                                    {% for keyword in ncer.nerKeywords %}
+                                    <button style="margin-left: 10px; margin-bottom: 10px;background-color: black; border: black;" type="button" class="btn btn-primary">
+                                        {{keyword[0]}} <span class="badge badge-light" style="color: black;">{{keyword[1]}}</span>
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tableform">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3 style="font-family: 'Helvetica';font-weight: normal;">News in this Cluster</h3>
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Source</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if 5 > ncer.total_number_of_articles %}
+                                    {% for i in range(ncer.total_number_of_articles) %} 
+                                    <tr>
+                                        <td scope="row">{{i+1}}</td>
+                                        <td>{{ncer.sources[i]}}</td>
+                                        <td>{{ncer.dates[i]}}</td>
+                                        <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                    </tr>
+                                    {% endfor %}   
+                                    {% else %}  
+                                    {% for i in range(5) %} 
+                                    <tr>
+                                        <td scope="row">{{i+1}}</td>
+                                        <td>{{ncer.sources[i]}}</td>
+                                        <td>{{ncer.dates[i]}}</td>
+                                        <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                    </tr>
+                                    {% endfor %} 
+                                    {% endif %}    
+                                </tbody>
+                            </table> 
+                            {% if ncer.total_number_of_articles > 5 %}
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse1">Show More</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse">
+                                    <table class="table">
+                                        <tbody>
+                                            {% for i in range(5,ncer.total_number_of_articles) %} 
+                                            <tr>
+                                                <td scope="row">{{i+1}}</td>
+                                                <td>{{ncer.sources[i]}}</td>
+                                                <td>{{ncer.dates[i]}}</td>
+                                                <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                            </tr>
+                                            {% endfor %}     
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <p style="line-height: 50px;">&nbsp;</p>
+        <hr class="solid">
+    {% endfor %}
+    <a class="gotopbtn" href="#"> <i class="fas fa-arrow-up"></i> </a>
+{% endblock %}
+
