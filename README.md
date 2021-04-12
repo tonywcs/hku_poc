@@ -14,25 +14,33 @@ To be released
 Here we listed the major parts of our project and where they are located in the github. To understand the implementation details behind them, please read our report.
 
 
-1) Custom created dataset with 5 classes (Brexit, Cryptocurrency, Electric Vehicle, Hong Kong, US-China), 560 data in total
+### Dataset 1: Custom created dataset with 5 classes (Brexit, Cryptocurrency, Electric Vehicle, Hong Kong, US-China), 560 data in total
   
   Location: nlp_data_science/custom_dataset.csv
   
  <br> 
  
-2) Evluated 4 word/sentence embeddings models (BERT, Word2Vec, TF-IDF, USE)
+### Dataset 2: UCI News Aggregator Dataset, contains headlines, URLs, and categories for 422,937 news stories collected by a web aggregator between March 10th, 2014 and August 10th, 2014.
+  
+  Location: nlp_data_science/uci-news-cleaned.csv
+  
+  Learn more about the dataset: https://www.kaggle.com/uciml/news-aggregator-dataset
+  
+ <br> 
+ 
+### Evluated 4 word/sentence embeddings models (BERT, Word2Vec, TF-IDF, USE)
   
  Location: nlp_data_science/notebook_wordEmbeddingComparison.ipynb
   
  <br> 
  
-3) Explored keyword extraction (Nouns, NERs) to explain different clusters. Merged clusters with recursive clustering approach
+### Explored keyword extraction (Nouns, NERs) to explain different clusters. Merged clusters with recursive clustering approach
   
   Location: nlp_data_science/notebook_keywordExtraction_mergeCluster.ipynb
     
  <br> 
  
-4) Output to JSON in NonSQL format
+### Output for NonSQL Database in JSON format
   
   Location: nlp_data_science/outputJSON.ipynb
   
@@ -40,10 +48,9 @@ Here we listed the major parts of our project and where they are located in the 
     
  <br> 
  
-5) Frontend Presentation and result evaluation
+### Frontend Presentation and result evaluation
 
 Location: web/
   
 "python app.py" to start the server, localhost:5000 to visit the website locally
  <br> 
- 
