@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <header style="background-color: #2f0f1a;">
+        <div class="container" style="padding-top: 10px;">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <img src="https://www.societegenerale.com/sites/default/files/2018/soc102c.png" alt="SG LOGO" style="width: 15%;">
+                <a class="navbar-brand" style="color: white; margin-left: 30px;" href="/">Home</a>
+                <a class="navbar-brand" style="color: white;" href="/about">About</a>
+                <div style="margin-left: auto; margin-right: 0px;">     
+
+                    <form onSubmit="return redirect()">
+                        <label for="dataset" style="color: white;">Dataset:</label>      
+                        <div class="row" id="datein">
+                            <div class="col">
+                                <select name="dataset" id="dataset" style="display: inline-block;">
+                                    <option value="none" selected disabled hidden>Select an Option</option>
+                                    <option value="custom">Custom Dataset</option>
+                                    <option value="uci">UCI News Aggregator Dataset</option>
+                                </select>
+                                <button class="btn btn-primary" style="display: inline-block; height:25px; font-size: small;background-color: white; border: 1px solid black;">🔍</button>
+                            </div>
+                        </div>
+                    </form> 
+
+  
+                </div>              
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 style="font-family: 'Helvetica';font-weight: normal;">Introducing Clustering to Societe Generale (SG)'s News Digest System</h4>
+                <h3 style="font-family: 'Helvetica';display: inline-block;">About us</h3>
+                <p style="font-size: small;">Every day in SG, analysts from the risk department would generate a set of daily market digest, which consists of the most significant financial news based on different regions, including the charts of the day. The daily market digest can allow readers to quickly grasp the latest market information and is widely used by top management executives. However, on average, it normally takes 3-4 hours to produce those reports. Therefore, the risk department is seeking a solution to automate this process to spare more human resources. The Design and Digital Office (DDO) of SG designed and implemented natural language processing (NLP) algorithms inspired by the latest and most popular methodologies to automate the generation of the daily market digest.</p>
+                <p style="font-size: small;">This project would explore the use of clustering algorithm with the latest word embedding methods, aiming to group similar incoming news into clusters. It would streamline the workflow and save analysts’ time, increase market news awareness, and provide better support for market activity monitoring and PNL validation.</p>
+            
+                <h3 style="font-family: 'Helvetica';">Learn more about our project</h3>
+                <label style="font-weight: normal;" for="github"> Implementation:</label>  
+                <a href="https://github.com/tonywcs/hku_poc">
+                <button name="github" style="margin-left: 10px; margin-bottom: 10px;background-color: #e9041e; border: #e9041e;" type="button" class="btn btn-primary">Github</button>
+                </a>
+                <br>
+                <label style="font-weight: normal;" for="report"> Project Report:</label>    
+                <button name="report" style="margin-left: 10px; margin-bottom: 10px;background-color: black; border: black;" type="button" class="btn btn-primary">Report</button>
+                <p style="font-size: small;display: inline-block;"> &nbsp;(To be released)</p>
+
+                <h3 style="font-family: 'Helvetica';">Our team</h3>
+                <p style="font-size: small;">Academic Advisor: Dr. Michael Chau</p>
+                <br>
+                <p style="font-size: small;">SG Advisor: Mr. Chamseddine Nasri</p>
+                <p style="font-size: small;">SG Advisor: Mr. Ray Wong</p>
+                <br>
+                <p style="font-size: small;">Student Team:</p>
+                <p style="font-size: small;">Enoch Ng, Felix Ng, Marcus Wong, Riley Tsoi, Sam Pang, Tony Wong</p>
+
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>       
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,327 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+    <header style="background-color: #2f0f1a;">
+        <div class="container" style="padding-top: 10px;">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <img src="https://www.societegenerale.com/sites/default/files/2018/soc102c.png" alt="SG LOGO" style="width: 15%;">
+                <a class="navbar-brand" style="color: white; margin-left: 30px;" href="/">Home</a>
+                <a class="navbar-brand" style="color: white;" href="/about">About</a>
+                <div style="margin-left: auto; margin-right: 0px;">     
+                
+                    <form onSubmit="return redirect()">
+                        <label for="dataset" style="color: white;">Dataset:</label>      
+                        <div class="row" id="datein">
+                            <div class="col">
+                                <select name="dataset" id="dataset" style="display: inline-block;">
+                                    <option value="custom">Custom Dataset</option>
+                                    <option value="uci" selected>UCI News Aggregator Dataset</option>
+                                </select>
+                                <button class="btn btn-primary" style="display: inline-block; height:25px; font-size: small;background-color: white; border: 1px solid black;">🔍</button>
+                            </div>
+                        </div>
+                    </form> 
+
+                </div>              
+            </nav>
+        </div>
+    </header>
+    
+<!--error message-->
+{% if no_error == false %} 
+<div class="alert alert-primary" role="alert">
+    Input Error. Please Search Again. 
+</div>
+{% endif %}
+<div class="jumbotron" style="margin:0rem; padding:1rem">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                {% if nc.cluster_type == 'day' %}
+                    {% if nc.date == today %}
+                    <h3 style="font-family: 'Helvetica';display: inline-block;">Cluster of This Week: {{nc.date}}</h3>
+                    {% else %}
+                    <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.date}}'s Cluster</h3>
+                    {% endif %}
+                {% elif nc.cluster_type == 'week' %}
+                <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.week}}'s Cluster</h3>
+                {% elif nc.cluster_type == 'month' %}
+                <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying {{nc.month}}'s Cluster</h3>
+                {% elif nc.cluster_type == 'all' %}
+                <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying All Data's Cluster</h3>
+                {% endif %}
+                <div style=" display: inline-block;"><p style="font-size: large;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster Type: {{nc.cluster_type}}</p></div>
+                <div><p style="font-size: medium;">Total Number of Clusters: {{nc.total_number_of_clusters}} </p></div>
+                    <div><p style="font-size: medium;">Total Number of Articles: {{nc.total_number_of_articles}}</p></div>
+            </div>      
+            <div class="col-4">
+                <form action="/uci" method="POST">
+                    <div class="row" id="radioctype">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="ctype" value="day" checked>
+                            <label class="form-check-label" for="day">Daily</label>
+                        </div>
+                    
+                        
+                    </div>
+                    <div class="row" id="datein">
+                        <div class="col">
+                            <label for="start">Date:&nbsp;&nbsp;&nbsp;</label>
+
+                            <select name="inputdate" id="start" style="display: inline-block; height:25px; width: 150px">
+                                <option value="none" selected disabled hidden>Select a Date</option>
+                                <option value="2014-03-11">11 March</option>
+                                <option value="2014-03-12">12 March</option>
+                                <option value="2014-03-13">13 March</option>
+                                <option value="2014-03-17">17 March</option>
+                                <option value="2014-03-18">18 March</option>
+                                <option value="2014-03-19">19 March</option>
+                                <option value="2014-03-20">20 March</option>
+                                <option value="2014-03-21">21 March</option>
+                                <option value="2014-03-22">22 March</option>
+                                <option value="2014-03-23">23 March</option>
+                                <option value="2014-03-24">24 March</option>
+                                <option value="2014-03-25">25 March</option>
+                                <option value="2014-03-26">26 March</option>
+                                <option value="2014-03-27">27 March</option>
+                                <option value="2014-03-28">28 March</option>
+                                <option value="2014-03-29">29 March</option>
+                                <option value="2014-03-30">30 March</option>
+                                <option value="2014-03-31">31 March</option>
+                                <option value="2014-04-01">1 April</option>
+                                <option value="2014-04-02">2 April</option>
+                                <option value="2014-04-07">7 April</option>
+                                <option value="2014-04-08">8 April</option>
+                                <option value="2014-04-09">9 April</option>
+                                <option value="2014-04-10">10 April</option>
+                                <option value="2014-04-11">11 April</option>
+                                <option value="2014-04-12">12 April</option>
+                                <option value="2014-04-13">13 April</option>
+                                <option value="2014-04-14">14 April</option>
+                                <option value="2014-04-15">15 April</option>
+                                <option value="2014-04-16">16 April</option>
+                                <option value="2014-04-17">17 April</option>
+                                <option value="2014-04-18">18 April</option>
+                                <option value="2014-04-19">19 April</option>
+                                <option value="2014-04-20">20 April</option>
+                                <option value="2014-04-21">21 April</option>
+                                <option value="2014-04-22">22 April</option>
+                                <option value="2014-04-23">23 April</option>
+                                <option value="2014-04-24">24 April</option>
+                                <option value="2014-04-25">25 April</option>
+                                <option value="2014-04-26">26 April</option>
+                                <option value="2014-04-29">29 April</option>
+                                <option value="2014-04-30">30 April</option>
+                                <option value="2014-05-01">1 May</option>
+                                <option value="2014-05-05">5 May</option>
+                                <option value="2014-05-06">6 May</option>
+                                <option value="2014-05-07">7 May</option>
+                                <option value="2014-05-08">8 May</option>
+                                <option value="2014-05-09">9 May</option>
+                                <option value="2014-05-10">10 May</option>
+                                <option value="2014-05-11">11 May</option>
+                                <option value="2014-05-12">12 May</option>
+                                <option value="2014-05-13">13 May</option>
+                                <option value="2014-05-18">18 May</option>
+                                <option value="2014-05-19">19 May</option>
+                                <option value="2014-05-20">20 May</option>
+                                <option value="2014-05-21">21 May</option>
+                                <option value="2014-05-22">22 May</option>
+                                <option value="2014-05-23">23 May</option>
+                                <option value="2014-05-24">24 May</option>
+                                <option value="2014-05-25">25 May</option>
+                                <option value="2014-05-26">26 May</option>
+                                <option value="2014-05-27">27 May</option>
+                                <option value="2014-05-28">28 May</option>
+                                <option value="2014-05-29">29 May</option>
+                                <option value="2014-05-30">30 May</option>
+                                <option value="2014-06-03">3 June</option>
+                                <option value="2014-06-04">4 June</option>
+                                <option value="2014-06-05">5 June</option>
+                                <option value="2014-06-13">13 June</option>
+                                <option value="2014-06-14">14 June</option>
+                                <option value="2014-06-15">15 June</option>
+                                <option value="2014-06-16">16 June</option>
+                                <option value="2014-06-17">17 June</option>
+                                <option value="2014-06-18">18 June</option>
+                                <option value="2014-06-19">19 June</option>
+                                <option value="2014-06-20">20 June</option>
+                                <option value="2014-06-23">23 June</option>
+                                <option value="2014-06-24">24 June</option>
+                                <option value="2014-06-25">25 June</option>
+                                <option value="2014-06-26">26 June</option>
+                                <option value="2014-06-27">27 June</option>
+                                <option value="2014-06-28">28 June</option>
+                                <option value="2014-06-29">29 June</option>
+                                <option value="2014-06-30">30 June</option>
+                                <option value="2014-07-01">1 July</option>
+                                <option value="2014-07-02">2 July</option>
+                                <option value="2014-07-03">3 July</option>
+                                <option value="2014-07-04">4 July</option>
+                                <option value="2014-07-05">5 July</option>
+                                <option value="2014-07-06">6 July</option>
+                                <option value="2014-07-07">7 July</option>
+                                <option value="2014-07-08">8 July</option>
+                                <option value="2014-07-09">9 July</option>
+                                <option value="2014-07-10">10 July</option>
+                                <option value="2014-07-11">11 July</option>
+                                <option value="2014-07-15">15 July</option>
+                                <option value="2014-07-16">16 July</option>
+                                <option value="2014-07-17">17 July</option>
+                                <option value="2014-07-18">18 July</option>
+                                <option value="2014-07-19">19 July</option>
+                                <option value="2014-07-29">29 July</option>
+                                <option value="2014-07-30">30 July</option>
+                                <option value="2014-07-31">31 July</option>
+                                <option value="2014-08-01">1 August</option>
+                                <option value="2014-08-02">2 August</option>
+                                <option value="2014-08-08">8 August</option>
+                                <option value="2014-08-09">9 August</option>
+                                <option value="2014-08-26">26 August</option>
+                                <option value="2014-08-28">28 August</option>
+                            </select>
+
+                            <p style="display: inline-block;">&nbsp;&nbsp;</p>
+                            <button class="btn btn-primary" type="submit" style="display: inline-block; height:25px; font-size: small;background-color: white; border: 1px solid black;">🔍</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+{% for ncer in nc.clusters %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 style="font-family: 'Helvetica';font-weight: normal;display: inline-block;">Cluster {{ncer.cluster}}</h3>
+                    <div style="display: inline-block;"><p style="font-size: small;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Size of Cluster: {{ncer.total_number_of_articles}})</p></div>
+                </div>       
+            </div>
+        </div>
+
+    <section id="top" >
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="taglist">
+                        <h3 style="font-family: 'Helvetica';font-weight: normal;">Top Keywords</h3>
+                        <div id="badge">
+                            <div class="row"> 
+                                {% for keyword in ncer.nounKeywords %}
+                           
+                                <button style="margin-left: 10px; margin-bottom: 10px;background-color: #e9041e; border: #e9041e;" type="button" class="btn btn-primary">
+                                    {{keyword[0]}} <span class="badge badge-light" style="color: black;">{{keyword[1]}}</span>
+                                </button>
+                                
+                                {% endfor %}
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="taglist">
+                        <h3 style="font-family: 'Helvetica';font-weight: normal;">Top Appeared Entity</h3>
+                        <div id="badge">
+                            <div class="row"> 
+                                {% for keyword in ncer.nerKeywords %}
+                                <button style="margin-left: 10px; margin-bottom: 10px;background-color: black; border: black;" type="button" class="btn btn-primary">
+                                    {{keyword[0]}} <span class="badge badge-light" style="color: black;">{{keyword[1]}}</span>
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tableform">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3 style="font-family: 'Helvetica';font-weight: normal;">News in this Cluster</h3>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Source</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if 5 > ncer.total_number_of_articles %}
+                                {% for i in range(ncer.total_number_of_articles) %} 
+                                <tr>
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>{{ncer.sources[i]}}</td>
+                                    <td>{{ncer.dates[i]}}</td>
+                                    <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                </tr>
+                                {% endfor %}   
+                                {% else %}  
+                                {% for i in range(5) %} 
+                                <tr>
+                                    <td scope="row">{{i+1}}</td>
+                                    <td>{{ncer.sources[i]}}</td>
+                                    <td>{{ncer.dates[i]}}</td>
+                                    <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                </tr>
+                                {% endfor %} 
+                                {% endif %}    
+                            </tbody>
+                        </table> 
+                        {% if ncer.total_number_of_articles > 5 %}
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse1">Show More</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse">
+                                <table class="table">
+                                    <tbody>
+                                        {% for i in range(5,ncer.total_number_of_articles) %} 
+                                        <tr>
+                                            <td scope="row">{{i+1}}</td>
+                                            <td>{{ncer.sources[i]}}</td>
+                                            <td>{{ncer.dates[i]}}</td>
+                                            <td><a style = "color: black; text-decoration: underline;" href="{{ncer.urls[i]}}" target="_blank">{{ncer.articles[i]}}</a></td>
+                                        </tr>
+                                        {% endfor %}     
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <p style="line-height: 50px;">&nbsp;</p>
+    <hr class="solid">
+{% endfor %}
+<a class="gotopbtn" href="#"> <i class="fas fa-arrow-up"></i> </a>
+
+{% endblock %}
+

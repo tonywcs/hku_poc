@@ -6,28 +6,27 @@
 
 {% block body %}
     <header style="background-color: #2f0f1a;">
-        <div class="container" >
+        <div class="container" style="padding-top: 10px;">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="https://www.societegenerale.com/en"><img src="https://www.societegenerale.com/sites/default/files/2018/soc102c.png" alt="SG LOGO" style="width: 20%;"></a> 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://hkusg.herokuapp.com/" style="color:white;white-space: nowrap;">Introducing Clustering to Societe Generale's News Digest System</a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:white;">&nbsp;&nbsp;</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" style="color:white;">About</a>
-                        </li> -->
+                <img src="https://www.societegenerale.com/sites/default/files/2018/soc102c.png" alt="SG LOGO" style="width: 15%;">
+                <a class="navbar-brand" style="color: white; margin-left: 30px;" href="/">Home</a>
+                <a class="navbar-brand" style="color: white;" href="/about">About</a>
+                <div style="margin-left: auto; margin-right: 0px;">     
                 
-                    </div>
-                </ul>
-                </div>
-                
+                    <form onSubmit="return redirect()">
+                        <label for="dataset" style="color: white;">Dataset:</label>      
+                        <div class="row" id="datein">
+                            <div class="col">
+                                <select name="dataset" id="dataset" style="display: inline-block;">
+                                    <option value="custom" selected>Custom Dataset</option>
+                                    <option value="uci">UCI News Aggregator Dataset</option>
+                                </select>
+                                <button class="btn btn-primary" style="display: inline-block; height:25px; font-size: small;background-color: white; border: 1px solid black;">🔍</button>
+                            </div>
+                        </div>
+                    </form> 
+
+                </div>              
             </nav>
         </div>
     </header>
@@ -55,7 +54,8 @@
                     <h3 style="font-family: 'Helvetica';display: inline-block;">Displaying All Data's Cluster</h3>
                     {% endif %}
                     <div style=" display: inline-block;"><p style="font-size: large;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster Type: {{nc.cluster_type}}</p></div>
-                    <div><p style="font-size: large;">Total Number of Clusters: {{nc.total_number_of_clusters}}</p></div>
+                    <div><p style="font-size: medium;">Total Number of Clusters: {{nc.total_number_of_clusters}} </p></div>
+                    <div><p style="font-size: medium;">Total Number of Articles: {{nc.total_number_of_articles}}</p></div>
                 </div>      
                 <div class="col-4">
                     <form action="/" method="POST">

@@ -8,7 +8,7 @@ app = Flask(__name__)
 #db connection 
 mongo = pymongo.MongoClient("mongodb+srv://iimt:iimt@cluster0.xsglo.mongodb.net/iimtnewsdb?retryWrites=true&w=majority") #connect mongodb
 db = mongo.iimtnewsdb #iimtnewsdb is my database
-col = db.cluster #Here cluster is my collection
+
     
 today = '2021-01-17' #datetime.date.strftime(datetime.date.today(),"%Y-%m-%d") change it to real today in real implementation
 no_error = True #state whether search has error or not 
@@ -34,6 +34,7 @@ def handleError():
 
 @app.route('/', methods=['POST','GET'])
 def index():
+    col = db.cluster
     if request.method == 'POST':
         try: 
             typeresult = request.values["ctype"] 
@@ -56,6 +57,36 @@ def index():
     else:
         nc = col.find_one({"cluster_type": "all"}) #default / landing page will show current week's cluster
         return render_template('index.html', nc=nc)
+
+@app.route('/about', methods=['GET'])
+def about():
+        return render_template('about.html')
+
+@app.route('/uci', methods=['GET', 'POST'])
+def uci():
+    col = db.uci
+    if request.method == 'POST':
+        try: 
+            typeresult = request.values["ctype"] 
+            if typeresult == "all":
+                nc = col.find_one({"cluster_type": typeresult }) 
+                return render_template('index_uci.html', nc=nc, today=today)
+            dateresult = request.values["inputdate"]
+            if dateresult is "":
+                return handleError()
+            if typeresult == "week":
+                dateresult = updateDateByWeek(dateresult)
+            if typeresult == "month":
+                dateresult = updateDateByMonth(dateresult)
+            nc = col.find_one({"cluster_type": typeresult , "date": dateresult }) 
+            return render_template('index_uci.html', nc=nc, today=today)
+
+        except: 
+            return handleError()
+        
+    else:
+        nc = col.find_one({"cluster_type": "day" , "date": "2014-03-11" }) 
+        return render_template('index_uci.html', nc=nc)
 
 if __name__ == "__main__":
     app.run(debug=True)
