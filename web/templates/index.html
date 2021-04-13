@@ -56,6 +56,9 @@
                     <div style=" display: inline-block;"><p style="font-size: large;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster Type: {{nc.cluster_type}}</p></div>
                     <div><p style="font-size: medium;">Total Number of Clusters: {{nc.total_number_of_clusters}} </p></div>
                     <div><p style="font-size: medium;">Total Number of Articles: {{nc.total_number_of_articles}}</p></div>
+                    {% if img != none %}
+                    <a style = "color: #e9041e;" href="{{ img }}">View graph result on top clusters</a>
+                    {% endif %}
                 </div>      
                 <div class="col-4">
                     <form action="/" method="POST">
