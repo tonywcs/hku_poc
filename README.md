@@ -8,7 +8,7 @@ This project would explore the use of clustering algorithm with the latest word 
 https://hkusg.herokuapp.com/
 
 # Report
-To be released
+https://https://hkusg.herokuapp.com/static/IIMT4601_Group_1_Final_Report.pdf
 
 # Description
 Here we listed the major parts of our project and where they are located in the github. To understand the implementation details behind them, please read our report.
