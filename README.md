@@ -48,6 +48,13 @@ Here we listed the major parts of our project and where they are located in the 
     
  <br> 
  
+### Network Visualization Graph
+
+Location: nlp_data_science/socialnetworkx.py
+  
+
+<br> 
+ 
 ### Frontend Presentation and result evaluation
 
 Location: web/
