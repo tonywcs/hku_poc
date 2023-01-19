@@ -8,9 +8,9 @@ This project would explore the use of clustering algorithm with the latest word 
 https://hkusg.herokuapp.com/ (Deprecated)
 
 # Report
-Report: [https://hkusg.herokuapp.com/static/IIMT4601_Group_1_Final_Report.pdf](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Group_1_Final_Report.pdf)
+Report: [Report Link](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Group_1_Final_Report.pdf)
 
-Slide: [https://hkusg.herokuapp.com/static/IIMT4601_Presentation.pdf](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Presentation.pdf)
+Slide: [Slide Link](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Presentation.pdf)
 
 # Description
 Here we listed the major parts of our project and where they are located in the github. To understand the implementation details behind them, please read our report.
