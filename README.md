@@ -5,12 +5,12 @@ Every day in a bank, analysts from the risk department would generate a set of d
 This project would explore the use of clustering algorithm with the latest word embedding methods, aiming to group similar incoming news into clusters. It would streamline the workflow and save analysts’ time, increase market news awareness, and provide better support for market activity monitoring and PNL validation.
 
 # Demonstration
-https://hkusg.herokuapp.com/
+https://hkusg.herokuapp.com/ (Deprecated)
 
 # Report
-Report: https://hkusg.herokuapp.com/static/IIMT4601_Group_1_Final_Report.pdf
+Report: [https://hkusg.herokuapp.com/static/IIMT4601_Group_1_Final_Report.pdf](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Group_1_Final_Report.pdf)
 
-Slide: https://hkusg.herokuapp.com/static/IIMT4601_Presentation.pdf
+Slide: [https://hkusg.herokuapp.com/static/IIMT4601_Presentation.pdf](https://github.com/tonywcs/hku_poc/blob/main/Documentation/IIMT4601_Presentation.pdf)
 
 # Description
 Here we listed the major parts of our project and where they are located in the github. To understand the implementation details behind them, please read our report.
